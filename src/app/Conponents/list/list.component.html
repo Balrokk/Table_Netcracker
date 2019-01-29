@@ -1,0 +1,32 @@
+<input placeholder="Поиск имя или фамилия" [(ngModel)]="findText">
+<input type="date"  [(ngModel)]="findDate">
+<input placeholder="Средний бал" [(ngModel)]="findRating"/>
+<table>
+    <thead>
+        <tr>
+            <th (click)="sortByFieldName('FirstName')">Фамилия</th>
+            <th (click)="sortByFieldName('SecondName')">Имя</th>
+            <th (click)="sortByFieldName('LastName')">Отчество</th>
+            <th>Дата Рождения</th>
+            <th (click)="sortByFieldName('AverageScore')">Средний балл</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor=" let user of users; let i = index"
+            [ngClass]="{
+                middleBall: user.AverageScore == 3 && enable,
+                find: isFind(user),
+                hide: isFilter(user)
+            }"
+        >
+            <td >{{user.FirstName}}</td>
+            <td>{{user.SecondName}}</td>
+            <td>{{user.LastName}}</td>
+            <td>{{user.Birthday}}</td>
+            <td>{{user.AverageScore}}</td>
+            <td (click)="deleteUser(i)">Удалить</td>
+        </tr>
+    </tbody>
+</table>
+<button (click)="this.enable = !this.enable">Отключатель {{enable}}</button>
